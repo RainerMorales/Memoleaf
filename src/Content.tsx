@@ -1,46 +1,43 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "./components/ui/button";
 import { useState } from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 function Content() {
   const [task, setTask] = useState("");
-  const [arr, setArr] = useState<string[]>([]);
-  const Addtask = () => {
-    if(!task.trim()){
-      alert("bro type something")
-      setTask("")
-    }else{
-      setArr([...arr,task])
-       setTask("");
-       localStorage.setItem("task",task)
-       storage()
+  const [tasks, setTasks] = useState<string[]>([]);
+
+  const add = () => {
+    if (task.trim() === "") {
+      toast.error("Type Something!");
+      setTask("");
+    } else {
+      toast.success("Add task Success!");
+      setTasks([...tasks, task]);
+      setTask("");
     }
   };
-  const storage=()=>{
-    localStorage.getItem("task")
-  }
-  storage()
   return (
     <>
+      <Toaster></Toaster>
       <main className="max-w-2xl border-2 rounded-md p-2 m-auto mt-25">
         <div className="flex m-auto w-full max-w-sm  space-x-2">
           <Input
             value={task}
-            type="text"
             onChange={(e) => setTask(e.target.value)}
+            type="text"
             placeholder="AddTask"
           />
-          <Button type="submit" onClick={Addtask}>
+          <Button onClick={add} type="submit">
             Add
           </Button>
         </div>
         <ul>
-          {arr.map((item, index) => (
+          {tasks.map((task, index) => (
             <li
-              className="p-2 border-2 m-2 rounded-md flex justify-between"
+              className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between "
               key={index}
             >
-              {item}
+              {task}
             </li>
           ))}
         </ul>
@@ -49,3 +46,5 @@ function Content() {
   );
 }
 export default Content;
+
+// className = "p-2 border-2 m-2 rounded-md flex justify-between";
