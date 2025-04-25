@@ -8,12 +8,21 @@ function Content() {
   const [tasks, setTasks] = useState<string[]>([]);
   const add = () => {
     if (task.trim() === "") {
-      toast.error("Type Something!");
+       toast.dismiss("error");
+       toast.error("Type Something!", {
+         id: "error", 
+         duration: 1000,
+       });
+      
       setTask("");
     } else {
       const updatedTasks = [...tasks, task];
       setTasks(updatedTasks);
-      toast.success("Task has been added!");
+      toast.dismiss("w");
+      toast.success("Task has been added!", {
+        id: "w", 
+        duration: 1000,
+      });
       setTask("");
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
@@ -23,7 +32,11 @@ function Content() {
     const arr = values.filter((task: string) => task !== taskToRemove); 
      localStorage.setItem("tasks", JSON.stringify(arr));
     setTasks(arr);
-    toast.success("Deleted!");
+    toast.dismiss("n");
+    toast.success("Deleted!", {
+      id: "n", 
+      duration: 1000,
+    });
   };
   useEffect(() => {
     const stored = localStorage.getItem("tasks");
@@ -33,6 +46,7 @@ function Content() {
   }, []);
   return (
     <>
+
       <Toaster></Toaster>
       <main className="max-w-2xl border-2 rounded-md p-2 m-auto mt-25">
         <div className="flex m-auto w-full max-w-sm  space-x-2">
@@ -48,13 +62,13 @@ function Content() {
         </div>
         <ul>
           {tasks.length == 0 ? (
-            <li className="p-10 text-xl text-center border-2 m-2 rounded-md  overflow-auto ">
+            <li className="p-10 text-xl  text-center border-2 m-2 rounded-md  overflow-auto ">
               No Available Task 🙂
             </li>
           ) : (
             tasks.map((task, index) => (
               <li
-                className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between "
+                className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between items-center "
                 key={index}
               >
                 {task}
