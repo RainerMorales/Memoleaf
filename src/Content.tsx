@@ -1,21 +1,36 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "./components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 function Content() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<string[]>([]);
-
   const add = () => {
     if (task.trim() === "") {
       toast.error("Type Something!");
       setTask("");
     } else {
-      toast.success("Add task Success!");
-      setTasks([...tasks, task]);
+      const updatedTasks = [...tasks, task];
+      setTasks(updatedTasks);
+      toast.success("Task has been added!");
       setTask("");
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
+  const remove = (taskToRemove:string) => {
+    const values =JSON.parse(localStorage.getItem("tasks")|| "[]")
+    const arr = values.filter((task: string) => task !== taskToRemove); 
+     localStorage.setItem("tasks", JSON.stringify(arr));
+    setTasks(arr);
+    toast.success("Deleted!");
+  };
+  useEffect(() => {
+    const stored = localStorage.getItem("tasks");
+    if (stored) {
+      setTasks(JSON.parse(stored));
+    }
+  }, []);
   return (
     <>
       <Toaster></Toaster>
@@ -25,21 +40,36 @@ function Content() {
             value={task}
             onChange={(e) => setTask(e.target.value)}
             type="text"
-            placeholder="AddTask"
+            placeholder="Type Here"
           />
-          <Button onClick={add} type="submit">
+          <Button className="cursor-pointer" onClick={add} type="submit">
             Add
           </Button>
         </div>
         <ul>
-          {tasks.map((task, index) => (
-            <li
-              className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between "
-              key={index}
-            >
-              {task}
+          {tasks.length == 0 ? (
+            <li className="p-10 text-xl text-center border-2 m-2 rounded-md  overflow-auto ">
+              No Available Task 🙂
             </li>
-          ))}
+          ) : (
+            tasks.map((task, index) => (
+              <li
+                className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between "
+                key={index}
+              >
+                {task}
+                <span
+                  key={index}
+                  onClick={() => {
+                    remove(task);
+                  }}
+                  className="flex items-center text-red-400 cursor-pointer "
+                >
+                  Delete
+                </span>
+              </li>
+            ))
+          )}
         </ul>
       </main>
     </>
