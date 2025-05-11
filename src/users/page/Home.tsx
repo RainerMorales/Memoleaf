@@ -1,40 +1,41 @@
 import { Input } from "@/components/ui/input";
-import { Button } from "./components/ui/button";
+import { Button } from "../../components/ui/button";
 import { useEffect, useState } from "react";
+import Header from "../Components/Header";
 import toast, { Toaster } from "react-hot-toast";
-
-function Content() {
+import { FaPlus } from "react-icons/fa";
+function Home() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<string[]>([]);
   const add = () => {
     if (task.trim() === "") {
-       toast.dismiss("error");
-       toast.error("Type Something!", {
-         id: "error", 
-         duration: 1000,
-       });
-      
+      toast.dismiss("error");
+      toast.error("Type Something!", {
+        id: "error",
+        duration: 1000,
+      });
+
       setTask("");
     } else {
       const updatedTasks = [...tasks, task];
       setTasks(updatedTasks);
       toast.dismiss("w");
       toast.success("Task has been added!", {
-        id: "w", 
+        id: "w",
         duration: 1000,
       });
       setTask("");
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
-  const remove = (taskToRemove:string) => {
-    const values =JSON.parse(localStorage.getItem("tasks")|| "[]")
-    const arr = values.filter((task: string) => task !== taskToRemove); 
-     localStorage.setItem("tasks", JSON.stringify(arr));
+  const remove = (taskToRemove: string) => {
+    const values = JSON.parse(localStorage.getItem("tasks") || "[]");
+    const arr = values.filter((task: string) => task !== taskToRemove);
+    localStorage.setItem("tasks", JSON.stringify(arr));
     setTasks(arr);
     toast.dismiss("n");
     toast.success("Deleted!", {
-      id: "n", 
+      id: "n",
       duration: 1000,
     });
   };
@@ -46,8 +47,8 @@ function Content() {
   }, []);
   return (
     <>
-
       <Toaster></Toaster>
+      <Header></Header>
       <main className="max-w-2xl border-2 rounded-md p-2 m-auto mt-25">
         <div className="flex m-auto w-full max-w-sm  space-x-2">
           <Input
@@ -57,7 +58,7 @@ function Content() {
             placeholder="Type Here"
           />
           <Button className="cursor-pointer" onClick={add} type="submit">
-            Add
+            <FaPlus />
           </Button>
         </div>
         <ul>
@@ -89,6 +90,6 @@ function Content() {
     </>
   );
 }
-export default Content;
+export default Home;
 
 // className = "p-2 border-2 m-2 rounded-md flex justify-between";
