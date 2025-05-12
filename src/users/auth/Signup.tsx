@@ -1,44 +1,47 @@
+import React, { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { signInWithPopup } from "firebase/auth";
 import { auth } from "@/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
-import { useState } from "react";
-import { signOut } from "firebase/auth";
-function Login() {
+import { useNavigate } from "react-router-dom";
+
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(auth.currentUser?.email);
-  const login = async () => {
-    setEmail("")
-    setPassword("")
-  };
-  const signup = async () => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-  };
-  const logout = async () => {
+  const navigate = useNavigate();
+  const create = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      await signOut(auth);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await sendEmailVerification(userCredential.user);
+      alert("Please check your email!");
+      setEmail("");
+      setPassword("");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="bg-black text-white h-screen flex justify-center items-center">
         <form
-          onSubmit={login}
+          onSubmit={create}
           className="bg-zinc-900 border  border-zinc-700 p-10 rounded shadow-xl w-full max-w-md space-y-4"
         >
-          <h1 className="text-xl">Log In</h1>
+          <h1 className="text-xl text-center">Sign Up</h1>
           <input
             onChange={(e) => setEmail(e.target.value)}
             className="bg-zinc-800 text-white border border-zinc-700 w-full p-3 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
             placeholder="Email"
             type="email"
+            value={email}
             required
           />
           <input
@@ -46,31 +49,17 @@ function Login() {
             className="bg-zinc-800 text-white border border-zinc-700 w-full p-3 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
             placeholder="Password"
             type="password"
-            required
+            value={password}
           />
-
           <button
             type="submit"
             className="w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
           >
-            Log In
+            Create Account
           </button>
-
-          <div className="text-red-700 text-center">
-            Invalid Email and Password
-          </div>
         </form>
       </div>
-      <button onClick={logout}>logout</button>
     </>
   );
 }
-export default Login;
-{
-  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400">
-              Sign in with google
-            </button>
-            <button onClick={logout}>
-              logout
-            </button> */
-}
+export default Signup;
