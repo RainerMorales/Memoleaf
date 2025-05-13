@@ -10,7 +10,7 @@ const RedirectIfLoggedIn = ({ children }: PrivateRouteProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user?.emailVerified) {
         navigate("/"); // 👈 redirect to home if already logged in
       }
     });
