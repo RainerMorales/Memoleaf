@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+
 function Home() {
   console.log(auth.currentUser?.email)
   const [task, setTask] = useState("");

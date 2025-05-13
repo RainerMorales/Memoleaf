@@ -2,14 +2,20 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Toaster,toast } from "react-hot-toast";
+
+import { onAuthStateChanged } from "firebase/auth";
+
+
+
+
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+console.log(onAuthStateChanged)
 
 
   const login = async (e: React.FormEvent) => {
@@ -43,6 +49,7 @@ function Login() {
       setPassword("");
     }
   };
+
 
 
 

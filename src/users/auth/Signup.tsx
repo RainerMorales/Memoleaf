@@ -31,7 +31,7 @@ function Signup() {
 
   return (
     <>
-      <div className="bg-black text-white h-screen flex justify-center lg:items-center md:items-center">
+      <div className="bg-black text-white h-screen flex justify-center items-center">
         <form
           onSubmit={create}
           className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
