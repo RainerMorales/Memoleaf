@@ -2,47 +2,64 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { Toaster,toast } from "react-hot-toast";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const[loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+
+
   const login = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      e.preventDefault();
       await signInWithEmailAndPassword(auth, email, password);
-      setLoading(true)
-      navigate("/");
+      const user = auth.currentUser?.emailVerified;
+      if(!user){
+        navigate("/login");
+        setLoading(false);
+        toast.dismiss("w");
+        toast.error("Email not verified!", {
+          id: "w",
+          duration: 4000,
+        });
+      }else{
+        navigate("/");
+
+      }
       setEmail("");
       setPassword("");
     } catch (err) {
-      setMessage("Invalid Credentials!");
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
-      console.log(err);
+      setLoading(false);
+      toast.dismiss("w");
+      toast.error("Invalid Credentials!", {
+        id: "w",
+        duration: 4000,
+      });
       setEmail("");
       setPassword("");
     }
   };
-  // const signup = async () => {
-  //   const provider = new GoogleAuthProvider();
-  //   await signInWithPopup(auth, provider);
-  // };
+
+
+
 
   return (
     <>
-      <div className="bg-black text-white h-screen flex justify-center items-center">
+      <Toaster></Toaster>
+      <div className="bg-black text-white h-screen flex justify-center items-center ">
         <form
           onSubmit={login}
-          className="bg-zinc-900 border  border-zinc-700 p-10 rounded shadow-xl w-full max-w-md space-y-4"
+          className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
         >
-          <h1 className="text-xl text-center">Log In</h1>
+          <h1 className="text-2xl text-center">Log In</h1>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-zinc-800 text-white border border-zinc-700 w-full p-3 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
             placeholder="Email"
             type="email"
             required
@@ -50,7 +67,7 @@ function Login() {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-zinc-800 text-white border border-zinc-700 w-full p-3 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
             placeholder="Password"
             type="password"
             required
@@ -71,13 +88,12 @@ function Login() {
               <span className="loading loading-dots loading-md"></span>
             </button>
           )}
-          <div className="text-center text-zinc-400">
+          <div className="text-center text-sm opacity-80">
             No account yet? Create one{" "}
-            <Link className="underline hover:text-zinc-600" to={"/Signup"}>
+            <Link className="hover:underline opacity-60" to={"/Signup"}>
               here
             </Link>
           </div>
-          {message && <div className="text-red-700 text-center">{message}</div>}
         </form>
       </div>
     </>
