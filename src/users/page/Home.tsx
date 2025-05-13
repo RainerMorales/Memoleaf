@@ -4,9 +4,14 @@ import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
+import { auth } from "@/firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 function Home() {
+  console.log(auth.currentUser?.email)
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<string[]>([]);
+  const navigate=useNavigate()
   const add = () => {
     if (task.trim() === "") {
       toast.dismiss("error");
@@ -39,6 +44,15 @@ function Home() {
       duration: 1000,
     });
   };
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login")
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     const stored = localStorage.getItem("tasks");
     if (stored) {
@@ -49,6 +63,7 @@ function Home() {
     <>
       <Toaster></Toaster>
       <Header></Header>
+
       <main className="max-w-2xl border-2 rounded-md p-2 m-auto mt-25">
         <div className="flex m-auto w-full max-w-sm  space-x-2">
           <Input
@@ -86,6 +101,10 @@ function Home() {
             ))
           )}
         </ul>
+        <button className="text-white" onClick={logout}>
+          logout
+        </button>
+       
       </main>
     </>
   );

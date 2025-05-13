@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -57,6 +58,12 @@ function Signup() {
           >
             Create Account
           </button>
+          <div className="text-center text-zinc-400">
+            Already have an account? Log in{" "}
+            <Link className="underline hover:text-zinc-600" to={"/Login"}>
+              here
+            </Link>
+          </div>
         </form>
       </div>
     </>
