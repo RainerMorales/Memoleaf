@@ -10,6 +10,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+  
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);

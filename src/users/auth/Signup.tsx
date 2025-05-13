@@ -60,10 +60,7 @@ function Signup() {
           </button>
           <div className="text-center text-sm opacity-80">
             Already have an account? Log in{" "}
-            <Link
-              className="hover:underline opacity-60 hover:text-zinc-600"
-              to={"/Login"}
-            >
+            <Link className="underline hover:opacity-60" to={"/Login"}>
               here
             </Link>
           </div>

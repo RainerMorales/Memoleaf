@@ -16,8 +16,6 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 console.log(onAuthStateChanged)
-
-
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -97,7 +95,7 @@ console.log(onAuthStateChanged)
           )}
           <div className="text-center text-sm opacity-80">
             No account yet? Create one{" "}
-            <Link className="hover:underline opacity-60" to={"/Signup"}>
+            <Link className="underline hover:opacity-60" to={"/Signup"}>
               here
             </Link>
           </div>
