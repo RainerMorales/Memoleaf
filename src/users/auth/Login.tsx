@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster,toast } from "react-hot-toast";
 
-import { onAuthStateChanged } from "firebase/auth";
-
 
 
 
@@ -15,7 +13,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-console.log(onAuthStateChanged)
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -55,51 +52,59 @@ console.log(onAuthStateChanged)
   return (
     <>
       <Toaster></Toaster>
-      <div className="bg-black text-white h-screen flex justify-center items-center ">
-        <form
-          onSubmit={login}
-          className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
-        >
-          <h1 className="text-2xl text-center">Log In</h1>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            placeholder="Email"
-            type="email"
-            required
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            placeholder="Password"
-            type="password"
-            required
-          />
-          {!loading ? (
-            <button
-              type="submit"
-              className="w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            >
-              Log In
-            </button>
-          ) : (
-            <button
-              disabled={loading}
-              type="submit"
-              className=" disabled:opacity-50 w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            >
-              <span className="loading loading-dots loading-md"></span>
-            </button>
-          )}
-          <div className="text-center text-sm opacity-80">
-            No account yet? Create one{" "}
-            <Link className="underline hover:opacity-60" to={"/Signup"}>
-              here
-            </Link>
+      <div className="bg-black text-white h-screen flex flex-col pt-10 items-center space-y-4 ">
+        <div className="space-y-4">
+          <div>
+            <img className="w-40" src="write.png" alt="" />
           </div>
-        </form>
+          <div className="text-center font-extrabold text-3xl">Todo-Now</div>
+        </div>
+        <div className="">
+          <form
+            onSubmit={login}
+            className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
+          >
+            <h1 className="text-lg text-center">Log In</h1>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Email"
+              type="email"
+              required
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Password"
+              type="password"
+              required
+            />
+            {!loading ? (
+              <button
+                type="submit"
+                className="w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              >
+                Log In
+              </button>
+            ) : (
+              <button
+                disabled={loading}
+                type="submit"
+                className=" disabled:bg-teal-500 cursor-not-allowed w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              >
+                <span className="loading  loading-dots loading-md"></span>
+              </button>
+            )}
+            <div className="text-center text-sm opacity-80">
+              No account yet? Create one{" "}
+              <Link className="underline text-teal-400 hover:opacity-60" to={"/Signup"}>
+                here
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
