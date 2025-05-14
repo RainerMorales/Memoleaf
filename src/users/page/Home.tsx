@@ -9,7 +9,6 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const username = auth.currentUser?.email
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<string[]>([]);
   const navigate=useNavigate()
