@@ -50,7 +50,7 @@ function Signup() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="bg-black text-white h-screen flex flex-col pt-10 items-center space-y-4">
+      <div className="text-white h-screen flex flex-col pt-10 items-center space-y-4">
         <div className="space-y-4">
           <div>
             <img className="w-40" src="write.png" alt="" />
@@ -65,7 +65,7 @@ function Signup() {
             <h1 className="text-2xl text-center">Sign Up</h1>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Email"
               type="email"
               value={email}
@@ -73,7 +73,7 @@ function Signup() {
             />
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Password"
               type="password"
               value={password}
@@ -81,7 +81,7 @@ function Signup() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 Create Account
               </button>

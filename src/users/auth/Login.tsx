@@ -4,10 +4,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster,toast } from "react-hot-toast";
 
-
-
-
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +48,7 @@ function Login() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="bg-black text-white h-screen flex flex-col pt-10 items-center space-y-4 ">
+      <div className="h-screen flex flex-col pt-10 items-center space-y-4 ">
         <div className="space-y-4">
           <div>
             <img className="w-40" src="write.png" alt="" />
@@ -62,13 +58,13 @@ function Login() {
         <div className="">
           <form
             onSubmit={login}
-            className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
+            className="p-10 rounded w-full max-w-md space-y-4"
           >
             <h1 className="text-lg text-center">Log In</h1>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Email"
               type="email"
               required
@@ -76,7 +72,7 @@ function Login() {
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-zinc-800 text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Password"
               type="password"
               required
@@ -84,7 +80,7 @@ function Login() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 Log In
               </button>
@@ -92,14 +88,17 @@ function Login() {
               <button
                 disabled={loading}
                 type="submit"
-                className=" disabled:bg-teal-500 cursor-not-allowed w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                className=" disabled:bg-teal-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
-                <span className="loading  loading-dots loading-md"></span>
+                <span className="loading  loading-dots loading-sm"></span>
               </button>
             )}
             <div className="text-center text-sm opacity-80">
               No account yet? Create one{" "}
-              <Link className="underline text-teal-400 hover:opacity-60" to={"/Signup"}>
+              <Link
+                className="underline text-teal-400 hover:opacity-60"
+                to={"/Signup"}
+              >
                 here
               </Link>
             </div>
@@ -111,7 +110,7 @@ function Login() {
 }
 export default Login;
 {
-  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400">
+  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400">
               Sign in with google
             </button>
             <button onClick={logout}>

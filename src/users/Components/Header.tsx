@@ -1,12 +1,13 @@
-import { ModeToggle } from "../../components/mode-toggle";
-import { auth } from "@/firebase";
+import Sidebar from "./Sidebar";
+
 function Header() {
-  console.log(auth.currentUser);
-    const username = auth.currentUser?.email
+  // console.log(auth.currentUser);
   return (
-    <header className="bg-black fixed p-6 top-0 shadow-md  w-full flex justify-between items-center">
-      <div className=" text-white font-bold">Welcome {username}</div>
-      <ModeToggle></ModeToggle>
+    <header className="p-6 top-0 shadow-md  w-full flex justify-between items-center border-b">
+      <div className=" text-white font-bold">Welcome</div>
+      <div>
+        <Sidebar />
+      </div>
     </header>
   );
 }

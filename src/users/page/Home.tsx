@@ -4,14 +4,11 @@ import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
-import { auth } from "@/firebase";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
+  
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<string[]>([]);
-  const navigate=useNavigate()
   const add = () => {
     if (task.trim() === "") {
       toast.dismiss("error");
@@ -44,15 +41,7 @@ function Home() {
       duration: 1000,
     });
   };
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login")
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  
   useEffect(() => {
     const stored = localStorage.getItem("tasks");
     if (stored) {
@@ -62,10 +51,9 @@ function Home() {
   return (
     <>
       <Toaster></Toaster>
-      <Header></Header>
-
-      <main className="max-w-2xl border-2 rounded-md p-2 m-auto mt-25">
-        <div className="flex m-auto w-full max-w-sm  space-x-2">
+      <Header></Header> 
+      <main className="max-w-2xl p-2 m-auto">
+        <div className="flex m-auto w-full max-w-sm space-x-2">
           <Input
             value={task}
             onChange={(e) => setTask(e.target.value)}
@@ -77,14 +65,15 @@ function Home() {
           </Button>
         </div>
         <ul>
+          
           {tasks.length == 0 ? (
-            <li className="p-10 text-xl  text-center border-2 m-2 rounded-md  overflow-auto ">
-              No Available Task 🙂
+            <li className="flex justify-center items-center h-100 text-xl  text-center border-2 m-2 rounded  overflow-auto ">
+              No Available Task
             </li>
           ) : (
             tasks.map((task, index) => (
               <li
-                className="p-2 border-2 m-2 rounded-md flex max-h-16  overflow-auto justify-between items-center "
+                className="p-2 border-2 m-2 rounded flex max-h-16  overflow-auto justify-between items-center "
                 key={index}
               >
                 {task}
@@ -101,10 +90,7 @@ function Home() {
             ))
           )}
         </ul>
-        <button className="text-white" onClick={logout}>
-          logout
-        </button>
-       
+        
       </main>
     </>
   );

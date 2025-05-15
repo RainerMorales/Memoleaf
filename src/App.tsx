@@ -1,5 +1,5 @@
-
 import Home from "./users/page/Home";
+import Footer from "./users/Components/Footer";
 import Login from "./users/auth/Login";
 import Signup from "./users/auth/Signup";
 import Notfound from "./users/page/Notfound";
@@ -38,6 +38,7 @@ function App() {
           <Route path="*" element={<Notfound></Notfound>}></Route>
         </Routes>
       </Router>
+      <Footer></Footer>
     </>
   );
 }
