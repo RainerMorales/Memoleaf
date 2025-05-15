@@ -27,7 +27,6 @@ function Login() {
         navigate("/");
 
       }
-      setEmail("");
       setPassword("");
     } catch (err) {
       setLoading(false);
@@ -36,7 +35,6 @@ function Login() {
         id: "w",
         duration: 4000,
       });
-      setEmail("");
       setPassword("");
     }
   };

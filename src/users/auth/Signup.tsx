@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useNavigate } from "react-router-dom";
@@ -10,22 +11,22 @@ import { toast, Toaster } from "react-hot-toast";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[displayName,setDisplayName] =useState("")
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    toast.dismiss("w");
-    toast.loading("Please Wait!", {
-      id: "w",
-      duration: 4000,
-    });
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+      const userName=userCredential.user
+      await updateProfile(userName,{
+        displayName:displayName
+      })
       await sendEmailVerification(userCredential.user);
       toast.dismiss("w");
       toast.success("Please check your email! ", {
@@ -55,14 +56,22 @@ function Signup() {
           <div>
             <img className="w-40" src="write.png" alt="" />
           </div>
-          <div className="text-center text-2xl">Todo-Now</div>
+          <div className="text-center font-extrabold text-3xl">Todo-Now</div>
         </div>
         <div className="">
           <form
             onSubmit={create}
             className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
           >
-            <h1 className="text-2xl text-center">Sign Up</h1>
+            <h1 className="text-lg text-center">Sign Up</h1>
+            <input
+              onChange={(e) => setDisplayName(e.target.value)}
+              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Username"
+              type="text"
+              value={displayName}
+              required
+            />
             <input
               onChange={(e) => setEmail(e.target.value)}
               className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"

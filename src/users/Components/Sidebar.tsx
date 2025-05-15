@@ -24,7 +24,7 @@ function Sidebar() {
             <GiHamburgerMenu size={20} />
           </label>
         </div>
-        <div className="drawer-side   bg-black">
+        <div className="drawer-side bg-black">
           <label
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
