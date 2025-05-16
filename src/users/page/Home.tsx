@@ -6,48 +6,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 
 function Home() {
-  
-  const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState<string[]>([]);
-  const add = () => {
-    if (task.trim() === "") {
-      toast.dismiss("error");
-      toast.error("Type Something!", {
-        id: "error",
-        duration: 1000,
-      });
-
-      setTask("");
-    } else {
-      const updatedTasks = [...tasks, task];
-      setTasks(updatedTasks);
-      toast.dismiss("w");
-      toast.success("Task has been added!", {
-        id: "w",
-        duration: 1000,
-      });
-      setTask("");
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    }
-  };
-  const remove = (taskToRemove: string) => {
-    const values = JSON.parse(localStorage.getItem("tasks") || "[]");
-    const arr = values.filter((task: string) => task !== taskToRemove);
-    localStorage.setItem("tasks", JSON.stringify(arr));
-    setTasks(arr);
-    toast.dismiss("n");
-    toast.success("Deleted!", {
-      id: "n",
-      duration: 1000,
-    });
-  };
-  
-  useEffect(() => {
-    const stored = localStorage.getItem("tasks");
-    if (stored) {
-      setTasks(JSON.parse(stored));
-    }
-  }, []);
+  const[task,setTask]=useState("")
+  const add = async()=>{
+    
+  }
+console.log(task)
   return (
     <>
       <Toaster></Toaster>
@@ -60,13 +23,24 @@ function Home() {
             type="text"
             placeholder="Type Here"
           />
-          <Button className="cursor-pointer" onClick={add} type="submit">
+          <Button className="cursor-pointer" type="submit">
             <FaPlus />
           </Button>
         </div>
         <ul>
           
-          {tasks.length == 0 ? (
+          
+        </ul>
+        
+      </main>
+    </>
+  );
+}
+export default Home;
+
+// className = "p-2 border-2 m-2 rounded-md flex justify-between";
+{
+  /* {tasks.length == 0 ? (
             <li className="flex justify-center items-center h-100 text-xl  text-center border-2 m-2 rounded  overflow-auto ">
               No Available Task
             </li>
@@ -88,13 +62,5 @@ function Home() {
                 </span>
               </li>
             ))
-          )}
-        </ul>
-        
-      </main>
-    </>
-  );
+          )} */
 }
-export default Home;
-
-// className = "p-2 border-2 m-2 rounded-md flex justify-between";

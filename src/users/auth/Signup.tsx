@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
+  sendEmailVerification
 } from "firebase/auth";
-import { auth } from "@/firebase";
+import { auth,db } from "@/firebase";
+import { doc,setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const[displayName,setDisplayName] =useState("")
+  const[name,setName]=useState("")
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const create = async (e: React.FormEvent) => {
+  const createUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -23,9 +23,11 @@ function Signup() {
         email,
         password
       );
-      const userName=userCredential.user
-      await updateProfile(userName,{
-        displayName:displayName
+      const user=userCredential.user
+      await setDoc(doc(db,"users",user.uid),{
+        name,
+        email,
+        createdAt:new Date()
       })
       await sendEmailVerification(userCredential.user);
       toast.dismiss("w");
@@ -38,6 +40,7 @@ function Signup() {
       setPassword("");
       navigate("/login");
     } catch (err) {
+      console.log(err)
       toast.dismiss("w");
       toast.error("Password should be at least 6 characters!", {
         id: "w",
@@ -60,16 +63,16 @@ function Signup() {
         </div>
         <div className="">
           <form
-            onSubmit={create}
+            onSubmit={createUser}
             className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
           >
             <h1 className="text-lg text-center">Sign Up</h1>
             <input
-              onChange={(e) => setDisplayName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Username"
               type="text"
-              value={displayName}
+              value={name}
               required
             />
             <input
