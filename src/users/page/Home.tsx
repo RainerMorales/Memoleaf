@@ -4,17 +4,34 @@ import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
-
+import { auth } from "@/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/firebase";
+import { getAuth } from "firebase/auth";
 function Home() {
-  const[task,setTask]=useState("")
-  const add = async()=>{
-    
-  }
-console.log(task)
+  const authuser =auth.currentUser
+  const [task, setTask] = useState("");
+  const [list,setList]=useState("")
+  const add = async () => {
+    if (!authuser) {
+      return alert("login first");
+    }
+    const userid=authuser.uid
+    console.log(userid)
+    try{
+      const todosRef =collection(db,"users",userid,"todos")
+      await addDoc(todosRef,{
+        text:task
+      })
+    }catch(err){
+      console.log(err)
+    }
+   
+  };
   return (
     <>
       <Toaster></Toaster>
-      <Header></Header> 
+      <Header></Header>
       <main className="max-w-2xl p-2 m-auto">
         <div className="flex m-auto w-full max-w-sm space-x-2">
           <Input
@@ -23,15 +40,11 @@ console.log(task)
             type="text"
             placeholder="Type Here"
           />
-          <Button className="cursor-pointer" type="submit">
+          <Button onClick={add} className="cursor-pointer" type="submit">
             <FaPlus />
           </Button>
         </div>
-        <ul>
-          
-          
-        </ul>
-        
+        <ul></ul>
       </main>
     </>
   );
