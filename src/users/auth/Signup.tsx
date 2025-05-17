@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification
+  sendEmailVerification,
+  updateProfile
 } from "firebase/auth";
 import { auth,db } from "@/firebase";
 import { doc,setDoc } from "firebase/firestore";
@@ -28,6 +29,9 @@ function Signup() {
         name,
         email,
         createdAt:new Date()
+      })
+      await updateProfile(userCredential.user,{
+        displayName:name
       })
       await sendEmailVerification(userCredential.user);
       toast.dismiss("w");
