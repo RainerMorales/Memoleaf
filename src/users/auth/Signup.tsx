@@ -63,7 +63,7 @@ function Signup() {
           <div>
             <img className="w-40" src="write.png" alt="" />
           </div>
-          <div className="text-center font-extrabold text-3xl">Todo-Now</div>
+          <div className="text-center  text-3xl">Todo-Now</div>
         </div>
         <div className="">
           <form

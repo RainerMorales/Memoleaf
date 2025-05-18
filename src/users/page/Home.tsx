@@ -20,7 +20,6 @@ function Home() {
   const [list, setList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const add = async () => {
-    setLoading(true);
     if (!authuser) {
       return alert("login first");
     }
@@ -34,25 +33,23 @@ function Home() {
       setTask("");
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
     }
   };
   useEffect(() => {
-
     if (!auth.currentUser) {
-      return alert("login first");
-    }
+      return console.log("login first");
+    } 
+    setLoading(true)
     const userid = auth.currentUser.uid;
     const todosRef = collection(db, "users", userid, "todos");
     const todoQuery = query(todosRef, orderBy("createdAt", "asc"));
     const unsubcribe = onSnapshot(todoQuery, (snapshot) => {
       const data = snapshot.docs.map((doc) => doc.data().text);
       setList(data);
-      
+      setLoading(false)
     });
     return () => unsubcribe();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -66,26 +63,26 @@ function Home() {
             type="text"
             placeholder="Type Here"
           />
-          {!loading ? (
-            <Button onClick={add} className="cursor-pointer" type="submit">
-              <FaPlus />
-            </Button>
-          ) : (
-            <Button onClick={add} className="cursor-pointer" type="submit">
-              <span className="loading loading-spinner loading-xs"></span>
-            </Button>
-          )}
+          <Button onClick={add} className="cursor-pointer" type="submit">
+            <FaPlus />
+          </Button>
         </div>
-        <ul>
-          {list.map((todo, index) => (
-            <li
-              className="p-2 border-2 m-2 rounded flex max-h-16  overflow-auto justify-between items-center"
-              key={index}
-            >
-              {todo}
-            </li>
-          ))}
-        </ul>
+        {!loading ? (
+          <ul className="grid lg:grid-cols-2  md:grid-cols-2 mt-10 ">
+            {list.map((todo, index) => (
+              <li
+                className="p-2 border-2 m-2 rounded min-h-30 bg-zinc-900"
+                key={index}
+              >
+                {todo}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="h-screen flex justify-center items-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+        )}
       </main>
     </>
   );

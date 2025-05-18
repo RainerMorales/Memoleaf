@@ -15,8 +15,6 @@ function PrivateRoute({ children }: PrivateRouteProps) {
       setUser(currentUser);
       setLoading(false);
     });
-
-    // Cleanup listener on component unmount
     return () => unsubscribe();
   }, []);
 
