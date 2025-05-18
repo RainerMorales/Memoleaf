@@ -58,19 +58,16 @@ function Signup() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="text-white h-screen flex flex-col pt-10 items-center space-y-4">
-        <div className="space-y-4">
-          <div>
-            <img className="w-40" src="write.png" alt="" />
-          </div>
-          <div className="text-center  text-3xl">Todo-Now</div>
+      <div className="text-white h-screen flex flex-col pt-10 lg:justify-center md:justify-center items-center space-y-4">
+        <div className="text-center font-bold text-5xl">
+          Todo<span className="text-teal-400">Now</span>
         </div>
         <div className="">
           <form
             onSubmit={createUser}
             className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
           >
-            <h1 className="text-lg text-center">Sign Up</h1>
+            <h1 className="text-lg opacity-80 text-center">Sign Up</h1>
             <input
               onChange={(e) => setName(e.target.value)}
               className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"

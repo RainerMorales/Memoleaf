@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
+
 import {
   addDoc,
   query,
@@ -68,16 +69,22 @@ function Home() {
           </Button>
         </div>
         {!loading ? (
-          <ul className="grid lg:grid-cols-2  md:grid-cols-2 mt-10 ">
-            {list.map((todo, index) => (
-              <li
-                className="p-2 border-2 m-2 rounded min-h-30 bg-zinc-900"
-                key={index}
-              >
-                {todo}
-              </li>
-            ))}
-          </ul>
+          list.length > 0 ? (
+            <ul className="grid lg:grid-cols-2  md:grid-cols-2 mt-10 ">
+              {list.map((todo, index) => (
+                <li
+                  className="p-4 border-2 border-zinc-700 m-2 rounded-xl min-h-30 bg-zinc-950 text-gray-100 hover:border-teal-400 transition-colors"
+                  key={index}
+                >
+                  {todo}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="border text-center mt-10 rounded-lg text-2xl  h-100 flex justify-center items-center">
+              No tasks yet. Add one to get started!
+            </div>
+          )
         ) : (
           <div className="h-screen flex justify-center items-center">
             <span className="loading loading-spinner loading-lg"></span>

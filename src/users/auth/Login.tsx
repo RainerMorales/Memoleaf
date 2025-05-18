@@ -47,19 +47,16 @@ function Login() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="h-screen flex flex-col pt-10 items-center space-y-4 ">
-        <div className="space-y-4">
-          <div>
-            <img className="w-40" src="write.png" alt="" />
-          </div>
-          <div className="text-center text-3xl">Todo-Now</div>
+      <div className="h-screen flex flex-col pt-10 lg:justify-center md:justify-center items-center space-y-4 ">
+        <div className="text-center font-bold text-5xl">
+          Todo<span className="text-teal-400">Now</span>
         </div>
         <div className="">
           <form
             onSubmit={login}
             className="p-10 rounded w-full max-w-md space-y-4"
           >
-            <h1 className="text-lg text-center">Log In</h1>
+            <h1 className="text-lg opacity-80 text-center">Log In</h1>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}

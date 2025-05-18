@@ -18,9 +18,9 @@ function Sidebar() {
     <>
       <div className="drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content z-50">
+        <div className="hover:opacity-80 drawer-content z-50 ">
           {/* Page content here */}
-          <label htmlFor="my-drawer-4" className="drawer-button">
+          <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer">
             <GiHamburgerMenu size={20} />
           </label>
         </div>
@@ -36,7 +36,7 @@ function Sidebar() {
              Menu
             </li>
             <li>
-              <button className="text-white bg-teal-600" onClick={logout}>
+              <button className="text-white flex justify-center rounded-2xl bg-teal-600 hover:opacity-80" onClick={logout}>
                 Sign Out
               </button>
             </li>
