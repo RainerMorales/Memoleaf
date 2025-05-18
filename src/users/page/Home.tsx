@@ -2,17 +2,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../../components/ui/button";
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
-import { addDoc, collection, getDoc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  query,
+  collection,
+  onSnapshot,
+  orderBy,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "@/firebase";
-import { getAuth } from "firebase/auth";
 function Home() {
   const authuser = auth.currentUser;
   const [task, setTask] = useState("");
   const [list, setList] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
   const add = async () => {
+    setLoading(true);
     if (!authuser) {
       return alert("login first");
     }
@@ -21,20 +29,31 @@ function Home() {
     try {
       await addDoc(todosRef, {
         text: task,
+        createdAt: serverTimestamp(),
       });
-      const querySnapshot = await getDocs(todosRef);
-      const data = querySnapshot.docs.map((doc) => doc.data().text);
-      setList(data);
+      setTask("");
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
-    const fetch = async()=>{
-      
+
+    if (!auth.currentUser) {
+      return alert("login first");
     }
-    fetch()
-  }, []);
+    const userid = auth.currentUser.uid;
+    const todosRef = collection(db, "users", userid, "todos");
+    const todoQuery = query(todosRef, orderBy("createdAt", "asc"));
+    const unsubcribe = onSnapshot(todoQuery, (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data().text);
+      setList(data);
+      
+    });
+    return () => unsubcribe();
+  },[]);
+
   return (
     <>
       <Toaster></Toaster>
@@ -47,9 +66,15 @@ function Home() {
             type="text"
             placeholder="Type Here"
           />
-          <Button onClick={add} className="cursor-pointer" type="submit">
-            <FaPlus />
-          </Button>
+          {!loading ? (
+            <Button onClick={add} className="cursor-pointer" type="submit">
+              <FaPlus />
+            </Button>
+          ) : (
+            <Button onClick={add} className="cursor-pointer" type="submit">
+              <span className="loading loading-spinner loading-xs"></span>
+            </Button>
+          )}
         </div>
         <ul>
           {list.map((todo, index) => (
