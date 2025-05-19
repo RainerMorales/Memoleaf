@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
+import { BsThreeDots } from "react-icons/bs";
 import { auth } from "@/firebase";
 
 import {
@@ -15,10 +16,15 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "@/firebase";
+interface Todo{
+  id:string,
+  text:string,
+  createdAt:Date|null
+}
 function Home() {
   const authuser = auth.currentUser;
   const [task, setTask] = useState("");
-  const [list, setList] = useState<string[]>([]);
+  const [list, setList] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
   const add = async () => {
     if (!authuser) {
@@ -39,15 +45,23 @@ function Home() {
   useEffect(() => {
     if (!auth.currentUser) {
       return console.log("login first");
-    } 
-    setLoading(true)
+    }
+    setLoading(true);
     const userid = auth.currentUser.uid;
     const todosRef = collection(db, "users", userid, "todos");
-    const todoQuery = query(todosRef, orderBy("createdAt", "asc"));
+    const todoQuery = query(todosRef, orderBy("createdAt", "desc"));
     const unsubcribe = onSnapshot(todoQuery, (snapshot) => {
-      const data = snapshot.docs.map((doc) => doc.data().text);
-      setList(data);
-      setLoading(false)
+      const data = snapshot.docs.map((doc) => {
+        const docData=doc.data()
+        return{
+          id:doc.id,
+          text:docData.text,
+          createdAt:docData.createdAt?.toDate(),
+        }
+
+      });
+      setList(data)
+      setLoading(false);
     });
     return () => unsubcribe();
   }, []);
@@ -62,7 +76,7 @@ function Home() {
             value={task}
             onChange={(e) => setTask(e.target.value)}
             type="text"
-            placeholder="Type Here"
+            placeholder="Add Task"
           />
           <Button onClick={add} className="cursor-pointer" type="submit">
             <FaPlus />
@@ -73,9 +87,15 @@ function Home() {
             <ul className="grid lg:grid-cols-2  md:grid-cols-2 mt-10 ">
               {list.map((todo, index) => (
                 <li
-                  className="p-4 border-2 border-zinc-700 m-2 rounded-xl min-h-30 bg-zinc-950 text-gray-100 hover:border-teal-400 transition-colors"
+                  className="p-2 m-2 border-2 border-zinc-800 rounded min-h-50 bg-zinc-900 text-gray-100 hover:border-teal-400 transition-colors"
                   key={index}
                 >
+                  <div className="flex h-6 text-xs justify-between text-zinc-500 ">
+                    <div>may7</div>
+                    <div>
+                      <BsThreeDots size={20} />
+                    </div>
+                  </div>
                   {todo}
                 </li>
               ))}
