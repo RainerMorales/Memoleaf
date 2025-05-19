@@ -85,18 +85,27 @@ function Home() {
         {!loading ? (
           list.length > 0 ? (
             <ul className="grid lg:grid-cols-2  md:grid-cols-2 mt-10 ">
-              {list.map((todo, index) => (
+              {list.map((item) => (
                 <li
                   className="p-2 m-2 border-2 border-zinc-800 rounded min-h-50 bg-zinc-900 text-gray-100 hover:border-teal-400 transition-colors"
-                  key={index}
+                  key={item.id}
                 >
                   <div className="flex h-6 text-xs justify-between text-zinc-500 ">
-                    <div>may7</div>
+                    <div>
+                      <span>{item.createdAt?.toLocaleDateString()}</span> |
+                      <span>
+                        {item.createdAt?.toLocaleTimeString(undefined, {
+                          hour: "2-digit",
+                          minute:"2-digit",
+                          hour12:true
+                        })}
+                      </span>
+                    </div>
                     <div>
                       <BsThreeDots size={20} />
                     </div>
                   </div>
-                  {todo}
+                  {item.text}
                 </li>
               ))}
             </ul>
