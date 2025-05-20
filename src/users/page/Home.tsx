@@ -5,7 +5,9 @@ import Header from "../Components/Header";
 import { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
-import Modal from "@/components/ui/Modal";
+import { deleteDoc,doc } from "firebase/firestore";
+import { useRef } from "react";
+import { BsThreeDots } from "react-icons/bs";
 import {
   addDoc,
   query,
@@ -25,6 +27,24 @@ function Home() {
   const [task, setTask] = useState("");
   const [list, setList] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const openmodal = () => {
+    if (modalRef.current) {
+      modalRef.current?.showModal();
+    }
+  };
+  const deleteTask = async (id:string) => {
+    if (!authuser) {
+      return;
+    }
+    const userid = authuser.uid;
+    const todosRef = doc(db, "users", userid, "todos", id);
+    try {
+      await deleteDoc(todosRef);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const add = async () => {
     if (!authuser) {
       return;
@@ -75,7 +95,6 @@ function Home() {
             onChange={(e) => setTask(e.target.value)}
             type="text"
             placeholder="Add Task"
-      
           />
           <Button onClick={add} className="cursor-pointer" type="submit">
             <FaPlus />
@@ -100,7 +119,29 @@ function Home() {
                         })}
                       </span>
                     </div>
-                    <Modal></Modal>
+                    <button className="cursor-pointer" onClick={openmodal}>
+                      <BsThreeDots size={20} />
+                    </button>
+                    <dialog ref={modalRef} className="modal">
+                      <div className="modal-box bg-zinc-900 rounded">
+                        <h3 className="font-bold text-lg text-center">
+                          Are you sure you want to delete?
+                        </h3>
+                        <div className="modal-action justify-center items-center">
+                          <form method="dialog" className="space-x-4">
+                            <button
+                              onClick={() => deleteTask(item.id)}
+                              className="btn bg-teal-600 border-none rounded-lg text-white"
+                            >
+                              Yes
+                            </button>
+                            <button className="btn bg-teal-600 border-none rounded-lg text-white">
+                              No
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </dialog>
                   </div>
                   {item.text}
                 </li>
