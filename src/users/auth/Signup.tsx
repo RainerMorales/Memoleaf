@@ -69,19 +69,23 @@ function Signup() {
           >
             <h1 className="text-lg opacity-80 text-center">Sign Up</h1>
             <input
+            name="name"
               onChange={(e) => setName(e.target.value)}
               className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Username"
               type="text"
               value={name}
+              autoComplete="on"
               required
             />
             <input
+            name="email"
               onChange={(e) => setEmail(e.target.value)}
               className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Email"
               type="email"
               value={email}
+              autoComplete="on"
               required
             />
             <input

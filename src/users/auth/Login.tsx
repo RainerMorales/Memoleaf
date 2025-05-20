@@ -58,11 +58,13 @@ function Login() {
           >
             <h1 className="text-lg opacity-80 text-center">Log In</h1>
             <input
+            name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className=" border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Email"
               type="email"
+              autoComplete="on"
               required
             />
             <input
