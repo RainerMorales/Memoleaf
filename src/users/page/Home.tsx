@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
 import Modal from "@/components/ui/Modal";
-
+import { BlurFade } from "@/components/magicui/blur-fade";
 
 import {
   addDoc,
@@ -72,7 +72,7 @@ function Home() {
       <Toaster></Toaster>
       <Header></Header>
       <main className="max-w-2xl p-2 m-auto ">
-        <div className="flex m-auto w-full max-w-sm space-x-2">
+        <BlurFade className="flex m-auto w-full max-w-sm space-x-2">
           <Input
             value={task}
             onChange={(e) => setTask(e.target.value)}
@@ -82,14 +82,17 @@ function Home() {
           <Button onClick={add} className="cursor-pointer" type="submit">
             <FaPlus />
           </Button>
-        </div>
+        </BlurFade>
         {!  loading ? (
           list.length > 0 ? (
             <ul className="grid mt-10 ">
-              {list.map((item) => (
-                <li
+              {list.map((item,index) => (
+                <BlurFade
                   className="p-2 m-2  rounded min-h-50 bg-zinc-900 text-gray-100 hover:bg-zinc-800 transition-colors"
                   key={item.id}
+          
+                  delay={index*0.1}
+                  inView={true}
                 >
                   <div className="flex h-6 text-xs items-center justify-between text-zinc-500 ">
                     <div>
@@ -105,7 +108,7 @@ function Home() {
                     <Modal id={item.id}></Modal>
                   </div>
                   {item.text}
-                </li>
+                </BlurFade>
               ))}
             </ul>
           ) : (
