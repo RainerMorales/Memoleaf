@@ -71,7 +71,7 @@ function Home() {
     <>
       <Toaster></Toaster>
       <Header></Header>
-      <main className="max-w-2xl p-2 m-auto">
+      <main className="max-w-2xl p-2 m-auto ">
         <div className="flex m-auto w-full max-w-sm space-x-2">
           <Input
             value={task}
@@ -88,7 +88,7 @@ function Home() {
             <ul className="grid mt-10 ">
               {list.map((item) => (
                 <li
-                  className="p-2 m-2 border-2 border-zinc-800 rounded min-h-50 bg-zinc-900 text-gray-100 hover:border-zinc-700 transition-colors"
+                  className="p-2 m-2  rounded min-h-50 bg-zinc-900 text-gray-100 hover:bg-zinc-800 transition-colors"
                   key={item.id}
                 >
                   <div className="flex h-6 text-xs items-center justify-between text-zinc-500 ">

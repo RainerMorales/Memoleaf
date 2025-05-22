@@ -2,20 +2,23 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Toaster,toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      const user = auth.currentUser?.emailVerified;
-      if(!user){
+      const verified = auth.currentUser?.emailVerified;
+      const users = auth.currentUser?.displayName;
+
+      if (!verified) {
         navigate("/login");
         setLoading(false);
         toast.dismiss("w");
@@ -23,13 +26,20 @@ function Login() {
           id: "w",
           duration: 4000,
         });
-      }else{
+      } else {
         navigate("/");
-
+        toast.dismiss("s");
+        toast.success("Welcome " + users, {
+          style: {
+            background: "#1e1e1e", // Dark background
+            color: "#fff", // Light text
+          },
+          id: "s",
+          duration: 4000,
+        });
       }
       setPassword("");
     } catch (err) {
-    
       setLoading(false);
       toast.dismiss("w");
       toast.error("Invalid Credentials!", {
@@ -39,10 +49,6 @@ function Login() {
       setPassword("");
     }
   };
-
-
-
-
 
   return (
     <>
@@ -58,7 +64,7 @@ function Login() {
           >
             <h1 className="text-lg opacity-80 text-center">Log In</h1>
             <input
-            name="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className=" border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
