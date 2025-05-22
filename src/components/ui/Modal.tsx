@@ -24,11 +24,12 @@ function Modal({id}:{id:string}) {
   };
   return (
     <>
-      <button className="cursor-pointer" onClick={openmodal}>
+     <div>
+     <button className="cursor-pointer" onClick={openmodal}>
         <BsThreeDots size={20} />
       </button>
-      <dialog ref={modalRef} className="modal">
-        <div className="modal-box bg-zinc-900 rounded">
+      <dialog ref={modalRef} className="modal w-full">
+        <div className="modal-box  bg-zinc-900 rounded">
           <h3 className="font-bold text-lg text-center">
             Are you sure you want to delete?
           </h3>
@@ -47,6 +48,7 @@ function Modal({id}:{id:string}) {
           </div>
         </div>
       </dialog>
+     </div>
     </>
   );
 }

@@ -83,7 +83,7 @@ function Home() {
             <FaPlus />
           </Button>
         </div>
-        {!loading ? (
+        {!  loading ? (
           list.length > 0 ? (
             <ul className="grid mt-10 ">
               {list.map((item) => (
@@ -114,8 +114,8 @@ function Home() {
             </div>
           )
         ) : (
-          <div className="h-screen flex justify-center items-center">
-            <span className="loading loading-spinner loading-lg"></span>
+          <div className="flex h-100 justify-center items-center">
+           <span className="loading loading-spinner loading-lg text-teal-400"></span>
           </div>
         )}
       </main>

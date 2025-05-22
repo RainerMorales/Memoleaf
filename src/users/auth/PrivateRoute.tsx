@@ -21,7 +21,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   if (loading)
     return (
       <div className="h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg"></span>
+        <span className="loading loading-spinner loading-lg text-teal-400"></span>
       </div>
     );
 

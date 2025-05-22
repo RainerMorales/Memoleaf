@@ -71,7 +71,7 @@ function Signup() {
             <input
             name="name"
               onChange={(e) => setName(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Username"
               type="text"
               value={name}
@@ -81,7 +81,7 @@ function Signup() {
             <input
             name="email"
               onChange={(e) => setEmail(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Email"
               type="email"
               value={email}
@@ -90,7 +90,7 @@ function Signup() {
             />
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Password"
               type="password"
               value={password}
@@ -98,7 +98,7 @@ function Signup() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 Create Account
               </button>
@@ -106,7 +106,7 @@ function Signup() {
               <button
                 disabled={loading}
                 type="submit"
-                className=" disabled:bg-teal-500 cursor-not-allowed  w-full p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className=" disabled:bg-teal-700 cursor-not-allowed  w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 <span className="loading loading-dots loading-success loading-md"></span>
               </button>
