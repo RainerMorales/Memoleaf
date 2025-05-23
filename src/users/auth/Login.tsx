@@ -23,6 +23,10 @@ function Login() {
         setLoading(false);
         toast.dismiss("w");
         toast.error("Email not verified!", {
+          style: {
+            background: "#1e1e1e", // Dark background
+            color: "#fff", // Light text
+          },
           id: "w",
           duration: 4000,
         });
@@ -43,6 +47,10 @@ function Login() {
       setLoading(false);
       toast.dismiss("w");
       toast.error("Invalid Credentials!", {
+        style: {
+            background: "#1e1e1e", // Dark background
+            color: "#fff", // Light text
+          },
         id: "w",
         duration: 4000,
       });

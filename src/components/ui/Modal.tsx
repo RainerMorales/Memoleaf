@@ -28,7 +28,7 @@ function Modal({id}:{id:string}) {
      <button className="cursor-pointer" onClick={openmodal}>
         <BsThreeDots size={20} />
       </button>
-      <dialog ref={modalRef} className="modal w-full">
+      <dialog ref={modalRef} className="modal h-screen">
         <div className="modal-box  bg-zinc-900 rounded">
           <h3 className="font-bold text-lg text-center">
             Are you sure you want to delete?
