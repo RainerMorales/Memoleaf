@@ -16,6 +16,7 @@ function App() {
             element={
               <RedirectIfLoggedIn>
                 <Login></Login>
+          
               </RedirectIfLoggedIn>
             }
           ></Route>

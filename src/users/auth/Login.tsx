@@ -48,9 +48,9 @@ function Login() {
       toast.dismiss("w");
       toast.error("Invalid Credentials!", {
         style: {
-            background: "#1e1e1e", // Dark background
-            color: "#fff", // Light text
-          },
+          background: "#1e1e1e", // Dark background
+          color: "#fff", // Light text
+        },
         id: "w",
         duration: 4000,
       });
@@ -61,21 +61,24 @@ function Login() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="h-screen flex flex-col pt-10 lg:justify-center md:justify-center items-center space-y-4 ">
-        <div className="text-center font-bold text-5xl">
-          Todo<span className="text-teal-400">Now</span>
-        </div>
+      <div className="h-screen flex flex-col  justify-center items-center space-y-4 ">
         <div className="">
+          <div className="flex justify-center items-center gap-2">
+            <img className="w-10" src="leaf.png" alt="" />
+            <div className="text-center font-bold text-5xl">
+              Memo<span className="text-green-600">Leaf</span>
+            </div>
+          </div>
           <form
             onSubmit={login}
             className="p-10 rounded w-full max-w-md space-y-4"
           >
-            <h1 className="text-lg opacity-80 text-center">Log In</h1>
+            <div className="text-lg opacity-80">Log In</div>
             <input
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className=" border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className=" border border-green-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="Email"
               type="email"
               autoComplete="on"
@@ -84,7 +87,7 @@ function Login() {
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className=" border border-green-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="Password"
               type="password"
               required
@@ -92,7 +95,7 @@ function Login() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="w-full p-2 text-white bg-green-500 hover:bg-green-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 Log In
               </button>
@@ -100,7 +103,7 @@ function Login() {
               <button
                 disabled={loading}
                 type="submit"
-                className=" disabled:bg-teal-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className=" disabled:bg-green-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 <span className="loading  loading-dots loading-sm"></span>
               </button>
@@ -108,7 +111,7 @@ function Login() {
             <div className="text-center text-sm opacity-80">
               No account yet? Create one{" "}
               <Link
-                className="underline text-teal-400 hover:opacity-60"
+                className="underline text-green-600 hover:opacity-60"
                 to={"/Signup"}
               >
                 here
@@ -116,13 +119,16 @@ function Login() {
             </div>
           </form>
         </div>
+        <div className="opacity-60 text-xs">
+          Developed by Rainer Morales | v.1
+        </div>
       </div>
     </>
   );
 }
 export default Login;
 {
-  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400">
+  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-green-400">
               Sign in with google
             </button>
             <button onClick={logout}>
