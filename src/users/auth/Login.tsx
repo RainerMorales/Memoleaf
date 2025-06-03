@@ -23,23 +23,15 @@ function Login() {
         setLoading(false);
         toast.dismiss("w");
         toast.error("Email not verified!", {
-          style: {
-            background: "#1e1e1e", // Dark background
-            color: "#fff", // Light text
-          },
           id: "w",
           duration: 4000,
         });
       } else {
         navigate("/");
         toast.dismiss("s");
-        toast.success("Welcome " + users, {
-          style: {
-            background: "#1e1e1e", // Dark background
-            color: "#fff", // Light text
-          },
+        toast.success("Welcome to MemoLeaf " + users, {
           id: "s",
-          duration: 4000,
+          duration: 10000,
         });
       }
       setPassword("");
@@ -103,7 +95,7 @@ function Login() {
               <button
                 disabled={loading}
                 type="submit"
-                className=" disabled:bg-green-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                className=" text-white disabled:bg-green-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 <span className="loading  loading-dots loading-sm"></span>
               </button>
@@ -119,7 +111,7 @@ function Login() {
             </div>
           </form>
         </div>
-        <div className="opacity-60 text-xs">
+        <div className="p-10 opacity-60 text-xs">
           Developed by Rainer Morales | v.1
         </div>
       </div>

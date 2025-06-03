@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
-import { auth,db } from "@/firebase";
-import { doc,setDoc } from "firebase/firestore";
+import { auth, db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const[name,setName]=useState("")
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const createUser = async (e: React.FormEvent) => {
@@ -24,15 +24,15 @@ function Signup() {
         email,
         password
       );
-      const user=userCredential.user
-      await setDoc(doc(db,"users",user.uid),{
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.uid), {
         name,
         email,
-        createdAt:new Date()
-      })
-      await updateProfile(userCredential.user,{
-        displayName:name
-      })
+        createdAt: new Date(),
+      });
+      await updateProfile(userCredential.user, {
+        displayName: name,
+      });
       await sendEmailVerification(userCredential.user);
       toast.dismiss("w");
       toast.success("Please check your email! ", {
@@ -48,7 +48,7 @@ function Signup() {
       setPassword("");
       navigate("/login");
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast.dismiss("w");
       toast.error("Password should be at least 6 characters!", {
         style: {
@@ -66,20 +66,23 @@ function Signup() {
   return (
     <>
       <Toaster></Toaster>
-      <div className="text-white h-screen flex flex-col pt-10 lg:justify-center md:justify-center items-center space-y-4">
-        <div className="text-center font-bold text-5xl">
-          Todo<span className="text-teal-400">Now</span>
+      <div className="h-screen flex flex-col justify-center items-center space-y-4">
+        <div className="flex justify-center items-center gap-2">
+          <img className="w-10" src="leaf.png" alt="" />
+          <div className="text-center font-bold text-5xl">
+            Memo<span className="text-green-600">Leaf</span>
+          </div>
         </div>
         <div className="">
           <form
             onSubmit={createUser}
-            className="p-10 rounded shadow-xl w-full max-w-md space-y-4"
+            className="p-10 rounded w-full max-w-md space-y-4"
           >
             <h1 className="text-lg opacity-80 text-center">Sign Up</h1>
             <input
-            name="name"
+              name="name"
               onChange={(e) => setName(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="border border-green-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Username"
               type="text"
               value={name}
@@ -87,9 +90,9 @@ function Signup() {
               required
             />
             <input
-            name="email"
+              name="email"
               onChange={(e) => setEmail(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="border border-green-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Email"
               type="email"
               value={email}
@@ -98,7 +101,7 @@ function Signup() {
             />
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className=" text-white border border-zinc-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="border border-green-700 w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               placeholder="Password"
               type="password"
               value={password}
@@ -106,7 +109,7 @@ function Signup() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 bg-teal-500 hover:bg-teal-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="text-white w-full p-2 bg-green-500 hover:bg-green-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 Create Account
               </button>
@@ -114,7 +117,7 @@ function Signup() {
               <button
                 disabled={loading}
                 type="submit"
-                className=" disabled:bg-teal-700 cursor-not-allowed  w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="text-white disabled:bg-green-700 cursor-not-allowed  w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 <span className="loading loading-dots loading-success loading-md"></span>
               </button>
@@ -122,13 +125,16 @@ function Signup() {
             <div className="text-center text-sm opacity-80">
               Already have an account? Log in{" "}
               <Link
-                className="underline text-teal-400 hover:opacity-60"
+                className="underline text-green-400 hover:opacity-60"
                 to={"/Login"}
               >
                 here
               </Link>
             </div>
           </form>
+        </div>
+        <div className="p-10 opacity-60 text-xs">
+          Developed by Rainer Morales | v.1
         </div>
       </div>
     </>

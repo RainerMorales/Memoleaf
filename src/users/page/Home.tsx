@@ -7,7 +7,6 @@ import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
 import Modal from "@/components/ui/Modal";
 import { BlurFade } from "@/components/magicui/blur-fade";
-import { Dialog } from "@/components/ui/dialog";
 import {
   addDoc,
   query,
@@ -79,7 +78,7 @@ function Home() {
             type="text"
             placeholder="Type Here"
           />
-          <Button onClick={add} className="cursor-pointer bg-teal-600" type="submit">
+          <Button onClick={add} className="cursor-pointer bg-green-800" type="submit">
             <FaPlus className="" />
           </Button>
         </BlurFade>
@@ -88,7 +87,7 @@ function Home() {
             <ul className="grid mt-10 ">
               {list.map((item,index) => (
                 <BlurFade
-                  className="p-2 mt-4 border border-teal-500 rounded min-h-50 shadow-sm transition-colors"
+                  className="p-2 mt-4 border  rounded min-h-50 shadow-sm transition-colors"
                   key={item.id}
           
                   delay={index*0.1}
@@ -118,7 +117,7 @@ function Home() {
           )
         ) : (
           <div className="flex h-100 justify-center items-center">
-           <span className="loading loading-spinner loading-lg text-teal-400"></span>
+           <span className="loading loading-spinner loading-lg text-green-400"></span>
           </div>
         )}
       </main>
