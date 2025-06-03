@@ -3,6 +3,9 @@
 @plugin "daisyui" {
   themes: false;
 }
+body{
+  background-color: #f0fdf4;
+}
 .comic-relief-regular {
   font-family: "Comic Relief", system-ui;
   font-weight: 400;

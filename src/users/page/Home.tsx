@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../../components/ui/button";
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
 import Modal from "@/components/ui/Modal";
@@ -34,14 +34,22 @@ function Home() {
     const userid = authuser.uid;
     const todosRef = collection(db, "users", userid, "todos");
     setTask("");
-    try {
-      await addDoc(todosRef, {
-        text: task,
-        createdAt: serverTimestamp(),
+    if(!task){
+      toast.dismiss("w")
+      toast.error("Type Something!", {
+        id: "w",
       });
-    } catch (err) {
-      console.log(err);
+    }else{
+      try {
+        await addDoc(todosRef, {
+          text: task,
+          createdAt: serverTimestamp(),
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
+   
   };
   useEffect(() => {
     if (!auth.currentUser) {
@@ -71,7 +79,7 @@ function Home() {
       <Toaster></Toaster>
       <Header></Header>
       <main className="max-w-2xl p-2 m-auto ">
-        <BlurFade className="flex m-auto w-full max-w-sm space-x-2">
+        <BlurFade className="bg-white flex m-auto w-full max-w-sm space-x-2">
           <Input
             value={task}
             onChange={(e) => setTask(e.target.value)}
@@ -87,7 +95,7 @@ function Home() {
             <ul className="grid mt-10 ">
               {list.map((item,index) => (
                 <BlurFade
-                  className="p-2 mt-4 border  rounded min-h-50 shadow-sm transition-colors"
+                  className="bg-white p-2 mt-4 border  rounded min-h-50 shadow-sm transition-colors"
                   key={item.id}
           
                   delay={index*0.1}

@@ -36,10 +36,6 @@ function Signup() {
       await sendEmailVerification(userCredential.user);
       toast.dismiss("w");
       toast.success("Please check your email! ", {
-        style: {
-          background: "#1e1e1e", // Dark background
-          color: "#fff", // Light text
-        },
         id: "w",
         duration: 4000,
       });
@@ -51,10 +47,6 @@ function Signup() {
       console.log(err);
       toast.dismiss("w");
       toast.error("Password should be at least 6 characters!", {
-        style: {
-          background: "#1e1e1e", // Dark background
-          color: "#fff", // Light text
-        },
         id: "w",
         duration: 4000,
       });
@@ -132,9 +124,6 @@ function Signup() {
               </Link>
             </div>
           </form>
-        </div>
-        <div className="p-10 opacity-60 text-xs">
-          Developed by Rainer Morales | v.1
         </div>
       </div>
     </>

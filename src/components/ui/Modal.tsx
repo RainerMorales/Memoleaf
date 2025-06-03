@@ -29,7 +29,7 @@ function Modal({id}:{id:string}) {
         <BsThreeDots size={20} />
       </button>
       <dialog ref={modalRef} className="modal h-screen">
-        <div className="modal-box  bg-zinc-900 rounded">
+        <div className="flex flex-col items-center justify-center modal-box h-50 bg-white rounded-2xl">
           <h3 className="font-bold text-lg text-center">
             Are you sure you want to delete?
           </h3>
@@ -37,11 +37,11 @@ function Modal({id}:{id:string}) {
             <form method="dialog" className="space-x-4">
               <button
                 onClick={() => deleteTask(id)}
-                className="btn bg-teal-600 border-none rounded-lg text-white"
+                className="btn p-6 bg-green-800 border-none rounded-lg text-white"
               >
                 Yes
               </button>
-              <button className="btn bg-teal-600 border-none rounded-lg text-white">
+              <button className="btn p-6 bg-green-800 rounded-lg text-white ">
                 No
               </button>
             </form>

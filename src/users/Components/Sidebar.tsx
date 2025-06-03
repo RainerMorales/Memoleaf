@@ -36,7 +36,7 @@ function Sidebar() {
             <li className="h-10">Menu</li>
             <li>
               <button
-                className="text-white flex justify-center rounded-2xl bg-teal-600 hover:opacity-80"
+                className="text-white flex justify-center rounded-2xl bg-green-600 hover:opacity-80"
                 onClick={logout}
               >
                 Sign Out

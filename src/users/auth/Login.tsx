@@ -39,10 +39,6 @@ function Login() {
       setLoading(false);
       toast.dismiss("w");
       toast.error("Invalid Credentials!", {
-        style: {
-          background: "#1e1e1e", // Dark background
-          color: "#fff", // Light text
-        },
         id: "w",
         duration: 4000,
       });
@@ -65,7 +61,7 @@ function Login() {
             onSubmit={login}
             className="p-10 rounded w-full max-w-md space-y-4"
           >
-            <div className="text-lg opacity-80">Log In</div>
+            <div className="text-center text-lg opacity-80">Log In</div>
             <input
               name="email"
               value={email}
@@ -111,19 +107,8 @@ function Login() {
             </div>
           </form>
         </div>
-        <div className="p-10 opacity-60 text-xs">
-          Developed by Rainer Morales | v.1
-        </div>
       </div>
     </>
   );
 }
 export default Login;
-{
-  /* <button onClick={signup} className="p-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-green-400">
-              Sign in with google
-            </button>
-            <button onClick={logout}>
-              logout
-            </button> */
-}
