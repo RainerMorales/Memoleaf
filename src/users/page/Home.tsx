@@ -78,7 +78,7 @@ function Home() {
     <>
       <Toaster></Toaster>
       <Header></Header>
-      <main className="max-w-2xl p-2 m-auto ">
+      <main className="max-w-6xl p-2 m-auto ">
         <BlurFade className="bg-white flex m-auto w-full max-w-sm space-x-2">
           <Input
             value={task}
@@ -86,22 +86,25 @@ function Home() {
             type="text"
             placeholder="Type Here"
           />
-          <Button onClick={add} className="cursor-pointer bg-green-800" type="submit">
+          <Button
+            onClick={add}
+            className="cursor-pointer bg-green-800"
+            type="submit"
+          >
             <FaPlus className="" />
           </Button>
         </BlurFade>
-        {!  loading ? (
+        {!loading ? (
           list.length > 0 ? (
-            <ul className="grid mt-10 ">
-              {list.map((item,index) => (
+            <ul className="grid lg:grid-cols-2 gap-4 mt-10 ">
+              {list.map((item, index) => (
                 <BlurFade
-                  className="bg-white p-2 mt-4 border  rounded min-h-50 shadow-sm transition-colors"
+                  className="bg-white p-2 mt-4  rounded-2xl min-h-50 shadow-xl transition-colors "
                   key={item.id}
-          
-                  delay={index*0.1}
+                  delay={index * 0.1}
                   inView={true}
                 >
-                  <div className="flex h-6 text-xs items-center justify-between text-zinc-500 ">
+                  <div className="flex p-4 bg-green-50 rounded h-6 text-xs items-center justify-between text-zinc-500  ">
                     <div>
                       <span>{item.createdAt?.toLocaleDateString()} | </span>
                       <span>
@@ -114,18 +117,18 @@ function Home() {
                     </div>
                     <Modal id={item.id}></Modal>
                   </div>
-                  {item.text}
+                  <div>{item.text}</div>
                 </BlurFade>
               ))}
             </ul>
           ) : (
-            <div className="border text-center mt-10 rounded-lg text-2xl  h-100 flex justify-center items-center">
-              No tasks yet. Add one to get started!
+            <div className="bg-white font-bold shadow-xl text-center mt-10 rounded-lg text-2xl  h-100 flex justify-center items-center">
+              Add one to get started! 📝
             </div>
           )
         ) : (
           <div className="flex h-100 justify-center items-center">
-           <span className="loading loading-spinner loading-lg text-green-400"></span>
+            <span className="loading loading-spinner loading-lg text-green-400"></span>
           </div>
         )}
       </main>

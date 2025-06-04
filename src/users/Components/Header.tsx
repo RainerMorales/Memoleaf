@@ -5,9 +5,7 @@ function Header() {
   const user = auth.currentUser?.displayName;
   return (
     <BlurFade className="bg-green-800 p-6 sticky backdrop-blur-lg top-0   w-full flex justify-between items-center border-b z-50">
-      <div className=" text-white font-bold">
-        Hi <span className="">{user}!</span>
-      </div>
+      <div className="flex items-center  text-white font-bold"><img className="w-4" src="leaf.png" alt="" />{user}</div>
       <div>
         <Sidebar />
       </div>
