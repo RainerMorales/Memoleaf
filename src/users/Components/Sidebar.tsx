@@ -24,7 +24,7 @@ function Sidebar() {
             <GiHamburgerMenu className="text-white" size={20} />
           </label>
         </div>
-        <div className="drawer-side bg-green-50">
+        <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
@@ -39,7 +39,7 @@ function Sidebar() {
                 className="text-green-50 flex justify-center rounded-2xl bg-green-600 hover:opacity-80"
                 onClick={logout}
               >
-                Sign Out
+                Log Out
               </button>
             </li>
           </ul>

@@ -103,8 +103,9 @@ function Home() {
                   key={item.id}
                   delay={index * 0.1}
                   inView={true}
+                  direction="left"
                 >
-                  <div className="flex p-4 bg-green-50 rounded h-6 text-xs items-center justify-between text-zinc-500  ">
+                  <div className="flex p-4 bg-green-800 text-white rounded h-6 text-xs items-center justify-between  ">
                     <div>
                       <span>{item.createdAt?.toLocaleDateString()} | </span>
                       <span>
@@ -117,7 +118,7 @@ function Home() {
                     </div>
                     <Modal id={item.id}></Modal>
                   </div>
-                  <div>{item.text}</div>
+                  <div className="p-2">{item.text}</div>
                 </BlurFade>
               ))}
             </ul>

@@ -29,7 +29,7 @@ function Login() {
       } else {
         navigate("/");
         toast.dismiss("s");
-        toast("Welcome to MemoLeaf " + users, {
+        toast(`Welcome ${users}!`, {
           id: "s",
           duration: 10000,
         });

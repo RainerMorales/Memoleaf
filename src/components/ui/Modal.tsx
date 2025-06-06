@@ -25,11 +25,11 @@ function Modal({id}:{id:string}) {
   return (
     <>
      <div>
-     <button className="cursor-pointer" onClick={openmodal}>
+     <button className="cursor-pointer hover:bg-green-600 rounded-xl" onClick={openmodal}>
         <BsThreeDots size={20} />
       </button>
       <dialog ref={modalRef} className="modal h-screen">
-        <div className="flex flex-col items-center justify-center modal-box h-50 bg-white rounded-2xl">
+        <div className="flex flex-col items-center justify-center modal-box h-50 bg-white text-black rounded-2xl">
           <h3 className="font-bold text-lg text-center">
             Are you sure you want to delete?
           </h3>
