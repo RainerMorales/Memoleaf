@@ -31,7 +31,7 @@ function Login() {
         toast.dismiss("s");
         toast(`Welcome ${users}!`, {
           id: "s",
-          duration: 10000,
+          duration: 5000,
         });
       }
       setPassword("");

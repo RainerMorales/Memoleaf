@@ -5,8 +5,17 @@ import Header from "../Components/Header";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
-import Modal from "@/components/ui/Modal";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { LuCirclePlus } from "react-icons/lu";
+import { RiPushpinFill } from "react-icons/ri";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   addDoc,
   query,
@@ -79,8 +88,9 @@ function Home() {
       <Toaster></Toaster>
       <Header></Header>
       <main className="max-w-6xl p-2 m-auto ">
-        <BlurFade className="bg-white flex m-auto w-full max-w-sm space-x-2">
+        <BlurFade className=" flex m-auto w-full max-w-sm space-x-2 space-y-4">
           <Input
+            className="bg-white"
             value={task}
             onChange={(e) => setTask(e.target.value)}
             type="text"
@@ -94,6 +104,20 @@ function Home() {
             <FaPlus className="" />
           </Button>
         </BlurFade>
+        <div className="flex  m-auto w-full max-w-sm space-x-2 ">
+          <div className="flex flex-wrap items-center gap-2 md:flex-row ">
+            <Button className="bg-white text-black hover:bg-green-800 hover:text-white">
+              <LuCirclePlus />
+              My Memo
+            </Button>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 md:flex-row ">
+            <Button className="bg-white text-black hover:bg-green-800 hover:text-white">
+              <RiPushpinFill />
+              Pin
+            </Button>
+          </div>
+        </div>
         {!loading ? (
           list.length > 0 ? (
             <ul className="grid lg:grid-cols-2 gap-4 mt-10 ">
@@ -116,7 +140,20 @@ function Home() {
                         })}
                       </span>
                     </div>
-                    <Modal id={item.id}></Modal>
+                    {/* <Modal id={item.id}></Modal> */}
+                    <Dialog>
+                      <DialogTrigger>Option</DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Are you absolutely sure?</DialogTitle>
+                          <DialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your account and remove your data from our
+                            servers.
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                   <div className="p-2">{item.text}</div>
                 </BlurFade>
