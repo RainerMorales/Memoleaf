@@ -1,7 +1,7 @@
 import Sidebar from "./Sidebar";
 import { auth } from "@/firebase";
 import { BlurFade } from "@/components/magicui/blur-fade";
-import { CgProfile } from "react-icons/cg";
+
 function Header() {
   const user = auth.currentUser?.displayName;
   return (

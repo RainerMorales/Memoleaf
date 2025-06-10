@@ -8,6 +8,7 @@ import { auth } from "@/firebase";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { LuCirclePlus } from "react-icons/lu";
 import { RiPushpinFill } from "react-icons/ri";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -15,14 +16,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import {
+  doc,
   addDoc,
   query,
   collection,
   onSnapshot,
   orderBy,
   serverTimestamp,
+  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 interface Todo {
@@ -31,24 +37,25 @@ interface Todo {
   createdAt: Date | null;
 }
 function Home() {
-  const authuser = auth.currentUser;
   const [task, setTask] = useState("");
+  const [newTask, setNewTask] = useState("");
+  
   const [list, setList] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const authuser = auth.currentUser;
+  if (!authuser?.uid) {
+    return;
+  }
+  const userid = authuser.uid;
   const add = async () => {
-    if (!authuser) {
-      return;
-    }
-    const userid = authuser.uid;
     const todosRef = collection(db, "users", userid, "todos");
     setTask("");
-    if(!task){
-      toast.dismiss("w")
+    if (!task) {
+      toast.dismiss("w");
       toast.error("Type Something!", {
         id: "w",
       });
-    }else{
+    } else {
       try {
         await addDoc(todosRef, {
           text: task,
@@ -58,7 +65,26 @@ function Home() {
         console.log(err);
       }
     }
-   
+  };
+  const del = async (memoid: string) => {
+    try {
+      await deleteDoc(doc(db, "users", userid, "todos", memoid));
+    } catch (err) {
+      console.log(err);
+      toast.error("Something Went Wrong!");
+    }
+  };
+  const edit = async (memoid: string) => {
+    try {
+      await updateDoc(doc(db, "users", userid, "todos", memoid), {
+        text: newTask,
+        createdAt:serverTimestamp()
+      });
+      toast.success("Changes Saved!");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something Went Wrong!");
+    }
   };
   useEffect(() => {
     if (!auth.currentUser) {
@@ -142,17 +168,48 @@ function Home() {
                     </div>
                     {/* <Modal id={item.id}></Modal> */}
                     <Dialog>
-                      <DialogTrigger>Option</DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Are you absolutely sure?</DialogTitle>
-                          <DialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete your account and remove your data from our
-                            servers.
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
+                      <form>
+                        <DialogTrigger asChild>
+                          <div onClick={()=>setNewTask(item.text)} className="cursor-pointer">Edit</div>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Edit </DialogTitle>
+                            <DialogDescription>
+                              Make changes to your Memo here. Click save when
+                              you&apos;re done.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="grid gap-4">
+                            <div className="grid gap-3">
+                              <Label>Text</Label>
+                              <Input
+                              value={newTask}
+                                onChange={(e) => setNewTask(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <DialogClose asChild>
+                              <Button
+                                onClick={() => del(item.id)}
+                                variant="outline"
+                              >
+                                Delete
+                              </Button>
+                            </DialogClose>
+                            <DialogClose asChild>
+                              <Button
+                                onClick={()=>edit(item.id)}
+                                className="bg-green-800"
+                                type="submit"
+                              >
+                                Save changes
+                              </Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </form>
                     </Dialog>
                   </div>
                   <div className="p-2">{item.text}</div>
