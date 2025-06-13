@@ -69,6 +69,7 @@ function Home() {
   const del = async (memoid: string) => {
     try {
       await deleteDoc(doc(db, "users", userid, "todos", memoid));
+      toast.success("Deleted!")
     } catch (err) {
       console.log(err);
       toast.error("Something Went Wrong!");
@@ -194,6 +195,7 @@ function Home() {
                               <Button
                                 onClick={() => del(item.id)}
                                 variant="outline"
+                                className="text-red-600 border border-red-600"
                               >
                                 Delete
                               </Button>

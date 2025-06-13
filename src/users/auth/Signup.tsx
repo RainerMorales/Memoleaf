@@ -111,7 +111,7 @@ function Signup() {
                 type="submit"
                 className="text-white disabled:bg-green-700 cursor-not-allowed  w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
-                <span className="loading loading-dots loading-success loading-md"></span>
+                <span className="loading loading-success loading-md"></span>
               </button>
             )}
             <div className="text-center text-sm opacity-80">
