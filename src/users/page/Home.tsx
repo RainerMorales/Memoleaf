@@ -6,8 +6,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { auth } from "@/firebase";
 import { BlurFade } from "@/components/magicui/blur-fade";
-import { LuCirclePlus } from "react-icons/lu";
-import { RiPushpinFill } from "react-icons/ri";
+// import { LuCirclePlus } from "react-icons/lu";
+// import { RiPushpinFill } from "react-icons/ri";
 import { Label } from "@/components/ui/label";
 import {
   Dialog,
@@ -39,7 +39,7 @@ interface Todo {
 function Home() {
   const [task, setTask] = useState("");
   const [newTask, setNewTask] = useState("");
-  
+
   const [list, setList] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
   const authuser = auth.currentUser;
@@ -69,7 +69,7 @@ function Home() {
   const del = async (memoid: string) => {
     try {
       await deleteDoc(doc(db, "users", userid, "todos", memoid));
-      toast.success("Deleted!")
+      toast.success("Deleted!");
     } catch (err) {
       console.log(err);
       toast.error("Something Went Wrong!");
@@ -79,7 +79,7 @@ function Home() {
     try {
       await updateDoc(doc(db, "users", userid, "todos", memoid), {
         text: newTask,
-        createdAt:serverTimestamp()
+        createdAt: serverTimestamp(),
       });
       toast.success("Changes Saved!");
     } catch (err) {
@@ -131,7 +131,7 @@ function Home() {
             <FaPlus className="" />
           </Button>
         </BlurFade>
-        <div className="flex  m-auto w-full max-w-sm space-x-2 ">
+        {/* <div className="flex  m-auto w-full max-w-sm space-x-2 ">
           <div className="flex flex-wrap items-center gap-2 md:flex-row ">
             <Button className="bg-white text-black hover:bg-green-800 hover:text-white">
               <LuCirclePlus />
@@ -144,21 +144,28 @@ function Home() {
               Pin
             </Button>
           </div>
-        </div>
+        </div> */}
         {!loading ? (
           list.length > 0 ? (
-            <ul className="grid lg:grid-cols-2 gap-4 mt-10 ">
+            <ul className="grid lg:grid-cols-2 gap-4 ">
               {list.map((item, index) => (
                 <BlurFade
-                  className="bg-white p-2 mt-4  rounded-2xl min-h-50 shadow-xl transition-colors "
+                  className="bg-white rounded-2xl min-h-50 shadow-xl transition-colors "
                   key={item.id}
                   delay={index * 0.1}
                   inView={true}
-                  direction="left"
+                  direction="up"
                 >
                   <div className="flex p-4 bg-green-800 text-white rounded h-6 text-xs items-center justify-between  ">
                     <div>
-                      <span>{item.createdAt?.toLocaleDateString()} | </span>
+                      <span>
+                        {item.createdAt?.toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long", // e.g., June
+                          day: "numeric",
+                        })}{" "}
+                        |{" "}
+                      </span>
                       <span>
                         {item.createdAt?.toLocaleTimeString(undefined, {
                           hour: "2-digit",
@@ -171,7 +178,12 @@ function Home() {
                     <Dialog>
                       <form>
                         <DialogTrigger asChild>
-                          <div onClick={()=>setNewTask(item.text)} className="cursor-pointer">Edit</div>
+                          <div
+                            onClick={() => setNewTask(item.text)}
+                            className="cursor-pointer"
+                          >
+                            Edit
+                          </div>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                           <DialogHeader>
@@ -185,7 +197,7 @@ function Home() {
                             <div className="grid gap-3">
                               <Label>Text</Label>
                               <Input
-                              value={newTask}
+                                value={newTask}
                                 onChange={(e) => setNewTask(e.target.value)}
                               />
                             </div>
@@ -202,7 +214,7 @@ function Home() {
                             </DialogClose>
                             <DialogClose asChild>
                               <Button
-                                onClick={()=>edit(item.id)}
+                                onClick={() => edit(item.id)}
                                 className="bg-green-800"
                                 type="submit"
                               >
