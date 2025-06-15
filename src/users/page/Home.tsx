@@ -156,7 +156,7 @@ function Home() {
                   inView={true}
                   direction="up"
                 >
-                  <div className="flex p-4 bg-green-800 text-white rounded h-6 text-xs items-center justify-between  ">
+                  <div className="flex p-4 bg-green-900 text-white rounded h-6 text-xs items-center justify-between  ">
                     <div>
                       <span>
                         {item.createdAt?.toLocaleDateString("en-US", {
