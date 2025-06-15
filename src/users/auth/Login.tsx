@@ -50,18 +50,20 @@ function Login() {
     <>
       <Toaster></Toaster>
       <div className="h-screen flex flex-col  justify-center items-center space-y-4 ">
-        <div className="">
-          <div className="flex justify-center items-center gap-2">
+        <div className="space-y-8">
+          <div className="flex  justify-center items-center gap-2 text-center">
             <img className="w-10" src="leaf.png" alt="" />
             <div className="text-center font-bold text-5xl">
               Memo<span className="text-green-600">Leaf</span>
             </div>
           </div>
+
           <form
             onSubmit={login}
-            className="p-10 rounded w-full max-w-md space-y-4"
+            className="p-10 rounded w-full max-w-md space-y-4 "
           >
-            <div className="text-center text-lg opacity-80">Log In</div>
+            
+            <div className=" text-center opacity-80">Welcome back! Please log in to access your notes.</div>
             <input
               name="email"
               value={email}
@@ -83,7 +85,7 @@ function Login() {
             {!loading ? (
               <button
                 type="submit"
-                className="w-full p-2 text-white bg-green-500 hover:bg-green-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full p-2 text-white bg-green-500 hover:bg-green-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 "
               >
                 Log In
               </button>
@@ -93,7 +95,6 @@ function Login() {
                 type="submit"
                 className=" text-white disabled:bg-green-700 cursor-not-allowed w-full p-2 bg-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
               >
-                 
                 <span className="loading loading-sm"></span>
               </button>
             )}

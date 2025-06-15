@@ -70,7 +70,9 @@ function Signup() {
             onSubmit={createUser}
             className="p-10 rounded w-full max-w-md space-y-4"
           >
-            <h1 className="text-lg opacity-80 text-center">Sign Up</h1>
+            <div className=" text-center opacity-80">
+              Create an account and start capturing your ideas instantly
+            </div>
             <input
               name="name"
               onChange={(e) => setName(e.target.value)}
