@@ -207,7 +207,7 @@ function Home() {
                               <Button
                                 onClick={() => del(item.id)}
                                 variant="outline"
-                                className="text-red-600 border border-red-600"
+                                className="bg-red-600 text-white hover:bg-red-700 hover:text-white"
                               >
                                 Delete
                               </Button>
@@ -215,7 +215,7 @@ function Home() {
                             <DialogClose asChild>
                               <Button
                                 onClick={() => edit(item.id)}
-                                className="bg-green-800"
+                                className="bg-white border border-green-900 text-green-900 hover:bg-green-900 hover:text-white"
                                 type="submit"
                               >
                                 Save changes
