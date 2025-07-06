@@ -8,7 +8,6 @@ import { auth } from "@/firebase";
 import { BlurFade } from "@/components/magicui/blur-fade";
 // import { LuCirclePlus } from "react-icons/lu";
 // import { RiPushpinFill } from "react-icons/ri";
-import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -195,8 +194,8 @@ function Home() {
                           </DialogHeader>
                           <div className="grid gap-4">
                             <div className="grid gap-3">
-                              <Label>Text</Label>
-                              <Input
+                              <textarea
+                              className="border rounded p-2 min-h-40"
                                 value={newTask}
                                 onChange={(e) => setNewTask(e.target.value)}
                               />
